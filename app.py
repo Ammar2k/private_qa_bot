@@ -7,6 +7,7 @@ from langchain.document_loaders import DirectoryLoader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -18,7 +19,7 @@ embeddings = OpenAIEmbeddings()
 # default model = "gpt-3.5-turbo"
 llm = ChatOpenAI()
 
-directory = "./your-text-documents"
+directory = "./data"
 
 def load_docs(directory):
     loader = DirectoryLoader(directory)
@@ -49,6 +50,7 @@ chain = load_qa_chain(llm, chain_type="stuff")
 
 def get_answer(query):
     similar_docs = db.similarity_search(query, k=3)
+    print(similar_docs)
     answer = chain.run(input_documents=similar_docs, question=query)
     return answer, similar_docs
 
