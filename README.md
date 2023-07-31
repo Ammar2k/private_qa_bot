@@ -10,4 +10,4 @@ This repo sets up a simple Question Answering bot on your private data using Cha
 5. open the terminal and execute the following command
         streamlit run app.py
 
-Find further description of the code in the following [blogpost](https://medium.com/@muhammad2000ammar)
+Find further description of the code in the following [blogpost](https://medium.com/@muhammad2000ammar/building-a-q-a-chatbot-on-private-data-ba1af4a9a4dc)
