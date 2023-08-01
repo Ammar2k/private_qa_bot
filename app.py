@@ -40,19 +40,16 @@ docs = split_docs(documents)
 
 db = Chroma.from_documents(
     documents=docs, 
-    embedding=embeddings, 
-    persist_directory="./chroma_db"
-) # where persist_directory is the location where the database will be stored
-
-db = Chroma(persist_directory="./chroma_db", embedding_function=embeddings)
+    embedding=embeddings
+)
 
 chain = load_qa_chain(llm, chain_type="stuff")
 
 def get_answer(query):
-    similar_docs = db.similarity_search(query, k=3)
+    similar_docs = db.similarity_search(query, k=2)
     print(similar_docs)
     answer = chain.run(input_documents=similar_docs, question=query)
-    return answer, similar_docs
+    return answer
 
 
 st.title("Private Q&A chatbot")
@@ -60,4 +57,5 @@ st.title("Private Q&A chatbot")
 prompt = st.text_input("Enter your query here!")
 
 if prompt:
-    st.write(get_answer(prompt))
+    st.markdown(get_answer(prompt))
+    
